@@ -11,7 +11,6 @@
             offsetY: 0,
         };
         //TODO: methods.next() & methods.prev() REFACTORING!!!
-
         var methods = {
             marking : function(obj)
             {
@@ -28,6 +27,7 @@
                     if(i == 0)
                         li.className += ' active';
                     ulMenu.appendChild(li);
+                    $(li).children('img').css('transform', 'rotate(' + settings.imageRptate + 'deg)');
                 }
 
                 var ulcontent = document.createElement('ul');
