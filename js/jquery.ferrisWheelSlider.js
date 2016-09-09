@@ -3,13 +3,13 @@
         var settings = {
             arrows: true,
             autoPlay: false,
-            duration: 5000,
+            duration: 1000,
+            speed: 1000,
             radius: 200,
             btnRorate: 0,
             imageRptate: 0,
             offsetX: 0,
             offsetY: 0,
-            speed: 0,
         };
 
         var methods = {
@@ -20,6 +20,8 @@
 
                 var ulMenu = document.createElement('ul');
                 ulMenu.className = "radialSlider";
+                $(ulMenu).css('transition', 'all ' + settings.duration + 'ms' ); 
+                
                 for( var i = 0; i < obj.getElementsByClassName("title").length; i++ )
                 {
                     var li = document.createElement('li');
