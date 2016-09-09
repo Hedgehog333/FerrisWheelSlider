@@ -4,6 +4,7 @@ jQuery plugin
 ### TODO:
 - methods.next() refactoring
 - methods.prev() refactoring
+- fix rotate: multiple sliders on a page
 - attach attr duration
 - attach attr autoPlay
 - attach attr speed
