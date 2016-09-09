@@ -2,15 +2,16 @@
     $.fn.ferrisWheelSlider = function(options) {
         var settings = {
             arrows: true,
-            autoPlay: true,
+            autoPlay: false,
             duration: 5000,
             radius: 200,
             btnRorate: 0,
             imageRptate: 0,
             offsetX: 0,
             offsetY: 0,
+            speed: 0,
         };
-        //TODO: methods.next() & methods.prev() REFACTORING!!!
+
         var methods = {
             marking : function(obj)
             {
@@ -32,8 +33,8 @@
 
                 var ulcontent = document.createElement('ul');
                 ulcontent.className = "radialSliderContent";
-                
-                
+
+
 
                 for( var i = 0; i < obj.getElementsByClassName("content").length; i++ )
                 {
@@ -175,7 +176,7 @@
         };
 
         var property = {
-            magicNumber: 7.8554,
+            magicNumber: 7.8554, //-90° angle of rotation
             total: 0,
             alpha: 0,
             angle: 0,
