@@ -16,8 +16,8 @@ jQuery plugin
 |-----------|:-------:|:-------------:|-----------------------------------------|
 |  arrows   | boolean |     true      |    Arrows show the slide transition.    |
 | autoPlay  | boolean |     false     |         Auto switching slide.           |
-|   speed   | integer |     1000      |        Slide transition speed.          |
-| duration  | integer |     5000      |        Slider rotation speed.           |
+|   speed   | integer |     1000      | Slide transition speed (*milliseconds*).|
+| duration  | integer |     1000      | Slider rotation speed (*milliseconds*). |
 |  radius   | integer |     200       |    Radius slider **(for PC only)**.     |
 | btnRorate | integer |      0        |              Turn buttons.              |
 |imageRptate| integer |      0        |         Turn image in buttons.          |
