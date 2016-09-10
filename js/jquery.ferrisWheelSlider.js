@@ -4,7 +4,7 @@
             arrows: true,
             autoPlay: false,
             duration: 1000,
-            speed: 8000,
+            speed: 5000,
             radius: 200,
             btnRorate: 0,
             imageRptate: 0,
