@@ -5,8 +5,6 @@ jQuery plugin
 - methods.next() refactoring
 - methods.prev() refactoring
 - fix rotate: multiple sliders on a page
-- attach attr autoPlay
-- attach attr speed
 - tablet display
 - mobile display
 
@@ -16,7 +14,7 @@ jQuery plugin
 |-----------|:-------:|:-------------:|-----------------------------------------|
 |  arrows   | boolean |     true      |    Arrows show the slide transition.    |
 | autoPlay  | boolean |     false     |         Auto switching slide.           |
-|   speed   | integer |     1000      | Slide transition speed (*milliseconds*).|
+|   speed   | integer |     5000      | Slide transition speed (*milliseconds*).|
 | duration  | integer |     1000      | Slider rotation speed (*milliseconds*). |
 |  radius   | integer |     200       |    Radius slider **(for PC only)**.     |
 | btnRorate | integer |      0        |        Turn buttons (*degrees*).        |

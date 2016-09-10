@@ -4,7 +4,7 @@
             arrows: true,
             autoPlay: false,
             duration: 1000,
-            speed: 1000,
+            speed: 8000,
             radius: 200,
             btnRorate: 0,
             imageRptate: 0,
@@ -166,16 +166,40 @@
                 {
                     case 'next':
                         property.deg -= property.angle;
-                        methods.next($(this).parent().children('ul.radialSlider'))
+                        methods.next($(this).parent().children('ul.radialSlider'));
                     break;
                     case 'prev':
                         property.deg += property.angle;
-                        methods.prev($(this).parent().children('ul.radialSlider'))
+                        methods.prev($(this).parent().children('ul.radialSlider'));
                     break;
                 }
 
+            },
+            autoPlay: function(wrapper)
+            {
+                var timer = setInterval(function(){
+                    if(property.autoPlay)
+                    {
+                        property.deg -= property.angle;
+                        methods.next($(wrapper).find('ul.radialSlider'));
+                    }
+                }, settings.speed);
+                return timer;
+            },
+            autoPlaySwitch: function(type)
+            {
+                switch  (type)
+                {
+                    case 'over':
+                        property.autoPlay = false;
+                    break;
+                    case 'out':
+                        property.autoPlay = true;
+                    break;
+                }
             }
         };
+
 
         var property = {
             magicNumber: 7.8554, //-90° angle of rotation
@@ -184,8 +208,11 @@
             angle: 0,
             deg: 0,
             mid: 0,
+            autoPlay: false,
+
         };
 
+        var timer;
         var make = function(){
             if ( options )
                 $.extend( settings, options );
@@ -195,9 +222,24 @@
             property.alpha = Math.PI * 2 / property.total;
             property.angle = 360 / property.total;
             property.mid = Math.floor(property.total/2);
-
+            property.autoPlay = settings.autoPlay;
             
             methods.wheel(wrapper);
+
+            console.log(settings.autoPlay);
+            if(settings.autoPlay)
+            {
+                console.log(settings.speed);
+                timer = methods.autoPlay(wrapper);
+
+                $(wrapper).delegate(wrapper, 'mouseenter', function(e) {
+                    methods.autoPlaySwitch('over');
+                });
+
+                $(wrapper).delegate(wrapper, 'mouseleave', function(e) {
+                    methods.autoPlaySwitch('out');
+                });
+            }
 
         };
 
