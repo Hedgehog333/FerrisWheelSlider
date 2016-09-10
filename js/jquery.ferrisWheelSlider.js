@@ -98,12 +98,14 @@
             touch : function()
             {
                 var curr = $(this).parent().children("li").index($(this));
-                var activ = $(this).parent().children("li").index($("li.active"));
+                var activ = $(this).parent().children("li").index($(this).parent().children("li.active"));
 
                 var step = curr - activ;
 
                 $(this).parent().children("li").removeClass("active");
                 $(this).addClass("active");
+
+                console.log(step);
 
 
                 if(step < 0) 
@@ -118,6 +120,8 @@
                     step -= property.total
                     property.deg += Math.abs(property.angle * step);
                 }
+
+                console.log(property);
 
                 methods.rotate( $(this).parent() );
                 methods.changeContent($(this).parent(), $(this).parent().children("li").index($(this)) );
@@ -149,7 +153,7 @@
                 var type_ = type || $(this).attr('class');
                 var obj = type? object : $(this).parent().children('ul.radialSlider') ;
 
-                var activ = obj.children("li").index($("li.active"));
+                var activ = obj.children("li").index(obj.children("li.active"));
                 obj.children("li").removeClass('active');
 
                 switch  (type_)
@@ -191,7 +195,6 @@
             }
         };
 
-
         var property = {
             magicNumber: 7.8554, //-90° angle of rotation
             total: 0,
@@ -228,6 +231,8 @@
                     methods.autoPlaySwitch('out');
                 });
             }
+
+
 
         };
 

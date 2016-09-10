@@ -2,7 +2,6 @@
 jQuery plugin
 
 ### TODO:
-- fix rotate: multiple sliders on a page
 - implement change slider instance states
 - tablet display
 - mobile display
