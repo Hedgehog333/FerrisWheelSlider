@@ -119,72 +119,63 @@
                     property.deg += Math.abs(property.angle * step);
                 }
 
-                $(this).parent().css('transform', 'rotate(' + property.deg + 'deg)');
-
-                //---------------
-                var li = $(this).parent().parent().children('.radialSliderContent').children("li");
-                li.removeClass("active");
-                li.eq( $(this).parent().children("li").index($(this)) ).addClass( "active" );
-                //---------------
-                /**/
+                methods.rotate( $(this).parent() );
+                methods.changeContent($(this).parent(), $(this).parent().children("li").index($(this)) );
             },
-            next : function(obj)
+            changeContent : function(obj, index)
             {
-                var activ = obj.children("li").index($("li.active"));
-
-                obj.children("li").removeClass('active');
+                var li = obj.parent().children('.radialSliderContent').children("li");
+                li.removeClass("active");
+                li.eq( index ).addClass( "active" );
+            },
+            next : function(obj, activ, li)
+            {
                 if(activ < property.total-1) 
                     obj.children("li").eq(activ).next().addClass('active');
                 else
                     obj.children("li").eq(0).addClass('active');
-                //--------------------
-                var li = obj.parent().children('.radialSliderContent').children("li");
-                li.removeClass("active");
-                li.eq( activ++<property.total-1?activ++:0 ).addClass( "active" );
-                //--------------------
-                obj.css('transform', 'rotate(' + property.deg + 'deg)');
+                methods.changeContent(obj, activ++<property.total-1?activ++:0 );
             },
-            prev : function(obj)
+            prev : function(obj, activ, li)
             {
-                var activ = obj.children("li").index($("li.active"));
-
-                obj.children("li").removeClass('active');
                 if(activ > 0) 
                     obj.children("li").eq(activ).prev().addClass('active');
                 else
                     obj.children("li").eq(property.total-1).addClass('active');
-                //--------------------
-                var li = obj.parent().children('.radialSliderContent').children("li");
-                li.removeClass("active");
-                li.eq( activ-->0?activ--:property.total-1 ).addClass( "active" );
-                //--------------------
-                obj.css('transform', 'rotate(' + property.deg + 'deg)');
+                methods.changeContent(obj, activ-->0?activ--:property.total-1 );
             },
-            move : function()
+            move : function(object, type)
             {
-                switch  ($(this).attr('class'))
+                var type_ = type || $(this).attr('class');
+                var obj = type? object : $(this).parent().children('ul.radialSlider') ;
+
+                var activ = obj.children("li").index($("li.active"));
+                obj.children("li").removeClass('active');
+
+                switch  (type_)
                 {
                     case 'next':
                         property.deg -= property.angle;
-                        methods.next($(this).parent().children('ul.radialSlider'));
+                        methods.next(obj, activ);
                     break;
                     case 'prev':
                         property.deg += property.angle;
-                        methods.prev($(this).parent().children('ul.radialSlider'));
+                        methods.prev(obj, activ);
                     break;
                 }
 
+                methods.rotate(obj);
+            },
+            rotate: function(obj)
+            {
+                obj.css('transform', 'rotate(' + property.deg + 'deg)');
             },
             autoPlay: function(wrapper)
             {
-                var timer = setInterval(function(){
+                setInterval(function(){
                     if(property.autoPlay)
-                    {
-                        property.deg -= property.angle;
-                        methods.next($(wrapper).find('ul.radialSlider'));
-                    }
+                        methods.move($(wrapper).find('ul.radialSlider'), 'next');
                 }, settings.speed);
-                return timer;
             },
             autoPlaySwitch: function(type)
             {
@@ -212,7 +203,6 @@
 
         };
 
-        var timer;
         var make = function(){
             if ( options )
                 $.extend( settings, options );
@@ -226,11 +216,9 @@
             
             methods.wheel(wrapper);
 
-            console.log(settings.autoPlay);
             if(settings.autoPlay)
             {
-                console.log(settings.speed);
-                timer = methods.autoPlay(wrapper);
+                methods.autoPlay(wrapper);
 
                 $(wrapper).delegate(wrapper, 'mouseenter', function(e) {
                     methods.autoPlaySwitch('over');

@@ -2,8 +2,6 @@
 jQuery plugin
 
 ### TODO:
-- methods.next() refactoring
-- methods.prev() refactoring
 - fix rotate: multiple sliders on a page
 - tablet display
 - mobile display
