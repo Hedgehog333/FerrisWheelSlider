@@ -105,9 +105,6 @@
                 $(this).parent().children("li").removeClass("active");
                 $(this).addClass("active");
 
-                console.log(step);
-
-
                 if(step < 0) 
                     step += property.total;
                 
@@ -120,8 +117,6 @@
                     step -= property.total
                     property.deg += Math.abs(property.angle * step);
                 }
-
-                console.log(property);
 
                 methods.rotate( $(this).parent() );
                 methods.changeContent($(this).parent(), $(this).parent().children("li").index($(this)) );
