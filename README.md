@@ -5,6 +5,7 @@ jQuery plugin
 - implement change slider instance states
 - tablet display
 - refactoring code
+- add sources (less/css/img/...)
 
 ## Attributes list:
 | Attribute |  Type   | Default value |       Units      |          Description                |  Device   |
