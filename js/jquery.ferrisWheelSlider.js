@@ -148,6 +148,7 @@
                 var type_ = type || $(this).attr('class');
                 var obj = type? object : $(this).parent().children('ul.radialSlider') ;
 
+
                 var activ = obj.children("li").index(obj.children("li.active"));
                 obj.children("li").removeClass('active');
 
@@ -198,7 +199,9 @@
             deg: 0,
             mid: 0,
             autoPlay: false,
-
+            widthTablet: 960,
+            widthMobile: 480,
+            bodyWidth: 0,
         };
 
         var make = function(){
@@ -206,13 +209,28 @@
                 $.extend( settings, options );
 
             var wrapper = methods.marking(this);
+
+            property.bodyWidth = document.body.scrollWidth;
             property.total = $(wrapper).children('ul.radialSlider').children('li').length;
-            property.alpha = Math.PI * 2 / property.total;
-            property.angle = 360 / property.total;
-            property.mid = Math.floor(property.total/2);
+
+            if(property.bodyWidth > property.widthTablet)
+            {
+                property.alpha = Math.PI * 2 / property.total;
+                property.angle = 360 / property.total;
+                property.mid = Math.floor(property.total/2);
+
+                methods.wheel(wrapper);
+            } 
+            else if (property.bodyWidth > property.widthMobile)
+            {
+                console.log('t');
+            }
+            else
+            {
+                console.log('m');
+            }
+
             property.autoPlay = settings.autoPlay;
-            
-            methods.wheel(wrapper);
 
             if(settings.autoPlay)
             {
@@ -226,9 +244,6 @@
                     methods.autoPlaySwitch('out');
                 });
             }
-
-
-
         };
 
         return this.each(make);
