@@ -130,28 +130,63 @@
             },
             next : function(obj, activ, li)
             {
+                if(property.bodyWidth <= property.widthMobile)
+                    methods.animOut(
+                        obj, 
+                        activ, 
+                        -property.widthItem
+                    );
+
                 if(activ < property.total-1) 
                     obj.children("li").eq(activ).next().addClass('active');
                 else
                     obj.children("li").eq(0).addClass('active');
+                
+                if(property.bodyWidth <= property.widthMobile)
+                {
+                    var act = activ < property.total-1 ? activ+1 : 0;
+                    methods.animIn(obj, act, 
+                        $(window).width() + obj.children('li').eq(act).outerWidth( true ), 
+                        $(window).width()/2 - obj.children('li').eq(act).outerWidth( true )/2
+                    );
+                }
+
                 methods.changeContent(obj, activ++<property.total-1?activ++:0 );
             },
             prev : function(obj, activ, li)
             {
+                if(property.bodyWidth <= property.widthMobile)
+                    methods.animOut(
+                        obj, 
+                        activ, 
+                        $(window).width() + property.widthItem
+                    );
+
                 if(activ > 0) 
                     obj.children("li").eq(activ).prev().addClass('active');
                 else
                     obj.children("li").eq(property.total-1).addClass('active');
+                
+                if(property.bodyWidth <= property.widthMobile)
+                {
+                    var act = activ > 0 
+                                ? activ-1 
+                                : property.total-1;
+                    methods.animIn(obj, act, -property.widthItem, 
+                        $(window).width()/2 - obj.children('li.active').eq(0).outerWidth( true )/2
+                    );
+                }
+
                 methods.changeContent(obj, activ-->0?activ--:property.total-1 );
             },
             move : function(object, type)
             {
                 var type_ = type || $(this).attr('class');
-                var obj = type? object : $(this).parent().children('ul.radialSlider') ;
-
+                var obj = type 
+                            ? object
+                            : $(this).parent().children('ul.radialSlider') ;
 
                 var activ = obj.children("li").index(obj.children("li.active"));
-                obj.children("li").removeClass('active');
 
                 switch  (type_)
                 {
@@ -214,10 +249,11 @@
             angle: 0,
             deg: 0,
             mid: 0,
-            autoPlay: false,
+            autoPlay: false,// TODO : drop
             widthTablet: 960,
             widthMobile: 480,
             bodyWidth: 0,
+            widthItem: 0,
         };
 
         var make = function(){
@@ -226,7 +262,7 @@
 
             var wrapper = methods.marking(this);
 
-            property.bodyWidth = document.body.scrollWidth;
+            property.bodyWidth = $(window).width();
             property.total = $(wrapper).children('ul.radialSlider').children('li').length;
 
             if(property.bodyWidth > property.widthTablet)
@@ -236,17 +272,21 @@
                 property.mid = Math.floor(property.total/2);
 
                 methods.wheel(wrapper);
+
+                property.autoPlay = settings.autoPlay;
             } 
-            else if (property.bodyWidth > property.widthMobile)
+            /*else if (property.bodyWidth > property.widthMobile)
             {
-                console.log('t');
-            }
+                console.log('t ' + property.bodyWidth);
+            }*/
             else
             {
-                console.log('m');
+                $(wrapper).children('ul.radialSlider').children('li.active').css('left', $(window).width()/2 - ( $('.active').eq(0).outerWidth( true )/2 ) +'px');
+                $(wrapper).children('ul.radialSlider').children('li').css('transform', 'rotate(' + (settings.btnRorate) + 'deg)');
+                property.widthItem = $(wrapper).children('ul.radialSlider').children('li.active').outerWidth( true );
             }
 
-            property.autoPlay = settings.autoPlay;
+            
 
             if(settings.autoPlay)
             {

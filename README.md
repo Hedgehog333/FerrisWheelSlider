@@ -4,7 +4,6 @@ jQuery plugin
 ### TODO:
 - implement change slider instance states
 - tablet display
-- mobile display
 - refactoring code
 
 ## Attributes list:
