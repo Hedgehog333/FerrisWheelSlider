@@ -10,6 +10,7 @@
             imageRptate: 0,
             offsetX: 0,
             offsetY: 0,
+            speedSlide: 500,
         };
 
         var methods = {
@@ -188,6 +189,21 @@
                         property.autoPlay = true;
                     break;
                 }
+            },
+            animOut: function( obj, index, val )
+            {
+                obj.children("li").eq(index).animate({
+                    left: val,
+                }, settings.speedSlide, 
+                function(){
+                    $(this).removeClass('active'); 
+                });
+            },
+            animIn: function( obj, index, from, to )
+            {
+                obj.children("li").eq(index).css('left', from +'px').animate({
+                    left: to,
+                }, settings.speedSlide);
             }
         };
 
