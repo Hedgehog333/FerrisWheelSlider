@@ -128,7 +128,7 @@
                 li.removeClass("active");
                 li.eq( index ).addClass( "active" );
             },
-            next : function(obj, activ, li)
+            next : function(obj, activ)
             {
                 if(property.bodyWidth <= property.widthMobile)
                     methods.animOut(
@@ -136,6 +136,8 @@
                         activ, 
                         -property.widthItem
                     );
+                else
+                    obj.children("li.active").removeClass('active'); 
 
                 if(activ < property.total-1) 
                     obj.children("li").eq(activ).next().addClass('active');
@@ -153,7 +155,7 @@
 
                 methods.changeContent(obj, activ++<property.total-1?activ++:0 );
             },
-            prev : function(obj, activ, li)
+            prev : function(obj, activ)
             {
                 if(property.bodyWidth <= property.widthMobile)
                     methods.animOut(
@@ -161,6 +163,8 @@
                         activ, 
                         $(window).width() + property.widthItem
                     );
+                else
+                    obj.children("li.active").removeClass('active'); 
 
                 if(activ > 0) 
                     obj.children("li").eq(activ).prev().addClass('active');
@@ -192,11 +196,11 @@
                 {
                     case 'next':
                         property.deg -= property.angle;
-                        methods.next(obj, activ);
+                        methods.next(obj, activ, $(this));
                     break;
                     case 'prev':
                         property.deg += property.angle;
-                        methods.prev(obj, activ);
+                        methods.prev(obj, activ, $(this));
                     break;
                 }
 
@@ -274,6 +278,19 @@
                 methods.wheel(wrapper);
 
                 property.autoPlay = settings.autoPlay;
+
+                if(settings.autoPlay)
+                {
+                    methods.autoPlay(wrapper);
+
+                    $(wrapper).delegate(wrapper, 'mouseenter', function(e) {
+                        methods.autoPlaySwitch('over');
+                    });
+
+                    $(wrapper).delegate(wrapper, 'mouseleave', function(e) {
+                        methods.autoPlaySwitch('out');
+                    });
+                }
             } 
             /*else if (property.bodyWidth > property.widthMobile)
             {
@@ -288,18 +305,7 @@
 
             
 
-            if(settings.autoPlay)
-            {
-                methods.autoPlay(wrapper);
-
-                $(wrapper).delegate(wrapper, 'mouseenter', function(e) {
-                    methods.autoPlaySwitch('over');
-                });
-
-                $(wrapper).delegate(wrapper, 'mouseleave', function(e) {
-                    methods.autoPlaySwitch('out');
-                });
-            }
+            
         };
 
         return this.each(make);
