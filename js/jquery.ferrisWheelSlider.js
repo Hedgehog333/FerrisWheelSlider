@@ -196,11 +196,11 @@
                 {
                     case 'next':
                         property.deg -= property.angle;
-                        methods.next(obj, activ, $(this));
+                        methods.next(obj, activ);
                     break;
                     case 'prev':
                         property.deg += property.angle;
-                        methods.prev(obj, activ, $(this));
+                        methods.prev(obj, activ);
                     break;
                 }
 
