@@ -3,6 +3,7 @@ jQuery plugin
 
 ### TODO:
 - implement change slider instance states
+- fix PC ver.
 - tablet display
 - refactoring code
 - add sources (less/css/img/...)
