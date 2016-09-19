@@ -3,6 +3,8 @@ jQuery plugin
 
 ### TODO:
 - implement change slider instance states
+- pick item
+- calculate the coordinates of the items
 - refactoring code
 - add sources (less/css/img/...)
 
