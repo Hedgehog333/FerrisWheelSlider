@@ -204,6 +204,9 @@
                     break;
                 }
 
+                if( property.isTablet )
+                    methods.tabletChange( obj.children("li") );
+
                 methods.rotate(obj);
             },
             rotate: function(obj)
@@ -243,6 +246,53 @@
                 obj.children("li").eq(index).css('left', from +'px').animate({
                     left: to,
                 }, settings.speedSlide);
+            },
+            tabletChange: function( collection )
+            {
+                var active = collection.index(collection.parent().children('li.active')),
+                previous = active > 0 ? active-1 : property.total-1,
+                next = active < property.total-1 ? active+1 : 0,
+                pp = previous > 0 ? previous-1 : property.total-1,
+                nn = next < property.total-1 ? next+1 : 0,
+                ppp = pp > 0 ? pp-1 : property.total-1,
+                nnn = nn < property.total-1 ? nn+1 : 0;
+                property.isTablet = true;
+
+                collection.css('display', 'none');
+                collection.eq(ppp).css({
+                    'display' : 'block',
+                    'left' : -120+'px',
+                });
+                collection.eq(pp).css({
+                    'display' : 'block',
+                    'left' : 86+'px',
+                });
+                collection.eq(previous).css({
+                    'display' : 'block',
+                    'left' : 180+'px',
+                });
+                collection.eq(active).css({
+                    'display' : 'block',
+                    'left' : 295+'px',
+                });
+                collection.eq(next).css({
+                    'display' : 'block',
+                    'left' : 435+'px',
+                });
+                collection.eq(nn).css({
+                    'display' : 'block',
+                    'left' : 540+'px',
+                });
+
+                collection.eq(nnn).css({
+                    'display' : 'block',
+                    'left' : window.innerWidth+'px',
+                });
+
+                collection.removeClass('neighborsActive');
+
+                collection.eq(next).addClass('neighborsActive');
+                collection.eq(previous).addClass('neighborsActive');
             }
         };
 
@@ -258,6 +308,7 @@
             widthMobile: 480,
             bodyWidth: 0,
             widthItem: 0,
+            isTablet: false,
         };
 
         var make = function(){
@@ -292,20 +343,20 @@
                     });
                 }
             } 
-            /*else if (property.bodyWidth > property.widthMobile)
+            else if (property.bodyWidth > property.widthMobile)
             {
-                console.log('t ' + property.bodyWidth);
-            }*/
+                $(wrapper).children('ul.radialSlider').children('li').css({
+                    'transform': 'rotate(' + (settings.btnRorate) + 'deg)',
+                    'transition': settings.speedSlide+'ms all',
+                });
+                methods.tabletChange( $(wrapper).children('ul.radialSlider').children('li') );
+            }
             else
             {
                 $(wrapper).children('ul.radialSlider').children('li.active').css('left', $(window).width()/2 - ( $('.active').eq(0).outerWidth( true )/2 ) +'px');
                 $(wrapper).children('ul.radialSlider').children('li').css('transform', 'rotate(' + (settings.btnRorate) + 'deg)');
                 property.widthItem = $(wrapper).children('ul.radialSlider').children('li.active').outerWidth( true );
             }
-
-            
-
-            
         };
 
         return this.each(make);
