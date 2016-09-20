@@ -277,9 +277,9 @@
                 collection.eq(next).addClass('neighborsActive');
                 collection.eq(previous).addClass('neighborsActive');
             },
-            tabletItemCss: function ( collection, index, left )
+            tabletItemCss: function ( $collection, index, left )
             {
-                collection.eq(index).css({
+                $collection.eq(index).css({
                     'display' : 'block',
                     'left' : left+'px',
                 });
