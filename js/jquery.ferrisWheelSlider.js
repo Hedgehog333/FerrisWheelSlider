@@ -1,5 +1,5 @@
 (function( $ ) {
-    $.fn.ferrisWheelSlider = function(options) {
+    $.fn.ferrisWheelSlider = function( options ) {
         var settings = {
             arrows: true,
             autoPlay: false,
@@ -14,10 +14,11 @@
         };
 
         var methods = {
-            marking : function(obj)
+            marking : function( obj )
             {
                 var $obj = $(obj),
-                    $wrapper = $('<div />').addClass('ferrisWheelSlider').addClass(obj.className),
+                    $wrapper = $('<div />') .addClass('ferrisWheelSlider')
+                                            .addClass( obj.className ),
                     $ulMenu = $('<ul />').addClass('radialSlider'),
                     $ulcontent = $('<ul />').addClass('radialSliderContent');
 
@@ -25,18 +26,18 @@
                 
                 for( var i = 0; i < $obj.find(".title").length; i++ )
                 {
-                    var $li = $('<li />').html( $obj.find(".title").eq(i).html() ).on('click', this.touch);
-                    if(i == 0)
+                    var $li = $('<li />').html( $obj.find(".title").eq( i ).html() ).on('click', this.touch);
+                    if( i == 0 )
                         $li.addClass('active');
-                    $ulMenu.append($li);
+                    $ulMenu.append( $li );
                     $li.children('img').css('transform', 'rotate(' + settings.imageRptate + 'deg)');
                 }
                 for( var i = 0; i < $obj.find(".content").length; i++ )
                 {
                     var $li = $('<li />').addClass('item'),
                         $title = $('<span />').addClass('titleBlock'),
-                        $wparContent = $('<div />').html( $obj.find(".content").eq(i).html() );
-                    if(i == 0)
+                        $wparContent = $('<div />').html( $obj.find(".content").eq( i ).html() );
+                    if( i == 0 )
                         $li.addClass('active');
 
                     $li.append( $title, $wparContent );
@@ -51,15 +52,15 @@
                 $obj.remove();
                 return $wrapper;
             },
-            arrows : function($parent)
+            arrows : function( $parent )
             {
                 var $prev = $('<span />').addClass('prev').text('prev').on('click', this.move);
                 var $next = $('<span />').addClass('next').text('next').on('click', this.move);
                 $parent.append( $prev, $next );
             },
-            wheel : function($obj)
+            wheel : function( $obj )
             {
-                $obj.children('ul.radialSlider').children('li').each(function(index)
+                $obj.children('ul.radialSlider').children('li').each(function( index )
                 {
                     var theta = property.alpha * index - property.magicNumber,
                         pointx  =  Math.floor( Math.cos( theta ) * settings.radius ),
@@ -69,10 +70,11 @@
                     $this.css('left', pointx + settings.offsetX + 'px');
                     $this.css('top', pointy  + settings.offsetY + 'px');
 
-                    $this.css('transform', 'rotate(' + (property.angle*index + settings.btnRorate) + 'deg)');
+                    $this.css('transform', 'rotate(' + property.angle*index + settings.btnRorate + 'deg)');
 
                     $obj.children('.radialSliderContent')
-                    .children("li.item").eq( index )
+                    .children("li.item")
+                    .eq( index )
                     .children(".titleBlock")
                     .text( $this.children('b').text() );
                 });
@@ -93,62 +95,65 @@
                     methods.tabletChange( $collection );
 
 
-                if(step < 0) 
+                if( step < 0 ) 
                     step += property.total;
                 
                 if( step <= property.mid && step >= 0 )
                 {
-                    property.deg -= Math.abs(property.angle * step);
+                    property.deg -= Math.abs( property.angle * step );
                 }
                 else
                 {
                     step -= property.total
-                    property.deg += Math.abs(property.angle * step);
+                    property.deg += Math.abs( property.angle * step );
                 }
 
                 methods.rotate( $container );
                 methods.changeContent( $container, $collection.index( $this ) );
             },
-            changeContent : function($obj, index)
+            changeContent : function( $obj, index )
             {
-                $obj.parent().children('.radialSliderContent')
-                .children("li").removeClass("active")
-                .eq( index ).addClass( "active" );
+                $obj.parent()
+                .children('.radialSliderContent')
+                .children("li")
+                .removeClass("active")
+                .eq( index )
+                .addClass( "active" );
             },
-            next : function($obj, activ)
+            next : function( $obj, activ )
             {
-                if(property.bodyWidth <= property.widthMobile)
+                if( property.bodyWidth <= property.widthMobile )
                     methods.animOut(
                         $obj, 
                         activ, 
                         -property.widthItem
                     );
                 else
-                    $obj.children("li.active").removeClass('active'); 
+                    $obj.children("li.active")
+                        .removeClass('active'); 
 
                 var $collection = $obj.children("li"),
                     $elem;
-                if(activ < property.total-1) 
-                    $elem = $collection.eq(activ).next();
+                if( activ < property.total-1 ) 
+                    $elem = $collection.eq( activ ).next();
                 else
                     $elem = $collection.eq(0);
                 $elem.addClass('active');
                 
-                if(property.bodyWidth <= property.widthMobile)
+                if( property.bodyWidth <= property.widthMobile )
                 {
                     var act = activ < property.total-1 ? activ+1 : 0,
                         width = $(window).width(),
-                        widthElem = $collection.eq(act).outerWidth( true );
+                        widthElem = $collection.eq( act ).outerWidth( true );
                     
                     methods.animIn($obj, act, 
                         width + widthElem, 
                         width/2 - widthElem/2
                     );
                 }
-
-                methods.changeContent($obj, activ++<property.total-1?activ++:0 );
+                methods.changeContent( $obj, activ++<property.total-1?activ++:0 );
             },
-            prev : function($obj, activ)
+            prev : function( $obj, activ )
             {
                 if(property.bodyWidth <= property.widthMobile)
                     methods.animOut(
@@ -177,9 +182,9 @@
                     );
                 }
 
-                methods.changeContent($obj, activ-->0?activ--:property.total-1 );
+                methods.changeContent( $obj, activ-->0?activ--:property.total-1 );
             },
-            move : function($object, type)
+            move : function( $object, type )
             {
                 var type_ = type || $(this).attr('class');
                 var $obj = type 
@@ -188,37 +193,37 @@
 
                 var activ = $obj.children("li").index($obj.children("li.active"));
 
-                switch  (type_)
+                switch( type_ )
                 {
                     case 'next':
                         property.deg -= property.angle;
-                        methods.next($obj, activ);
+                        methods.next( $obj, activ );
                     break;
                     case 'prev':
                         property.deg += property.angle;
-                        methods.prev($obj, activ);
+                        methods.prev( $obj, activ );
                     break;
                 }
 
                 if( property.isTablet )
                     methods.tabletChange( $obj.children("li") );
 
-                methods.rotate($obj);
+                methods.rotate( $obj );
             },
-            rotate: function($obj)
+            rotate: function( $obj )
             {
                 $obj.css('transform', 'rotate(' + property.deg + 'deg)');
             },
-            autoPlay: function($container)
+            autoPlay: function( $container )
             {
                 setInterval(function(){
-                    if(property.autoPlay)
-                        methods.move($container, 'next');
-                }, settings.speed);
+                    if( property.autoPlay )
+                        methods.move( $container, 'next' );
+                }, settings.speed );
             },
-            autoPlaySwitch: function(type)
+            autoPlaySwitch: function( type )
             {
-                switch  (type)
+                switch( type )
                 {
                     case 'over':
                         property.autoPlay = false;
@@ -230,22 +235,27 @@
             },
             animOut: function( $container, index, val )
             {
-                $container.children("li").eq(index).animate({
+                $container.children("li")
+                .eq( index )
+                .animate({
                     left: val,
-                }, settings.speedSlide, 
-                function(){
-                    $(this).removeClass('active');
+                    }, settings.speedSlide, 
+                    function(){
+                        $(this).removeClass('active');
                 });
             },
             animIn: function( $container, index, from, to )
             {
-                $container.children("li").eq(index).css('left', from +'px').animate({
+                $container.children("li")
+                .eq( index )
+                .css('left', from +'px')
+                .animate({
                     left: to,
-                }, settings.speedSlide);
+                }, settings.speedSlide );
             },
             tabletChange: function( $collection )
             {
-                var active = $collection.index($collection.parent().children('li.active')),
+                var active = $collection.index( $collection.parent().children('li.active') ),
                 previous = active > 0 ? active-1 : property.total-1,
                 next = active < property.total-1 ? active+1 : 0,
                 prevPrev = previous > 0 ? previous-1 : property.total-1,
@@ -266,12 +276,12 @@
 
                 $collection.removeClass('neighborsActive');
 
-                $collection.eq(next).addClass('neighborsActive');
-                $collection.eq(previous).addClass('neighborsActive');
+                $collection.eq( next ).addClass('neighborsActive');
+                $collection.eq( previous ).addClass('neighborsActive');
             },
             tabletItemCss: function ( $collection, index, left )
             {
-                $collection.eq(index).css({
+                $collection.eq( index ).css({
                     'display' : 'block',
                     'left' : left+'px',
                 });
@@ -297,7 +307,7 @@
             if ( options )
                 $.extend( settings, options );
 
-            var wrapper = methods.marking(this),
+            var wrapper = methods.marking( this ),
                 $wrapper = $(wrapper),
                 $container = $wrapper.children('ul.radialSlider'),
                 $collection = $container.children('li');
@@ -305,33 +315,33 @@
             property.bodyWidth = $(window).width();
             property.total = $collection.length;
 
-            if(property.bodyWidth > property.widthTablet)
+            if( property.bodyWidth > property.widthTablet )
             {
                 property.alpha = Math.PI * 2 / property.total;
                 property.angle = 360 / property.total;
-                property.mid = Math.floor(property.total/2);
+                property.mid = Math.floor( property.total/2 );
 
-                methods.wheel($wrapper);
+                methods.wheel( $wrapper );
 
                 property.autoPlay = settings.autoPlay;
 
-                if(settings.autoPlay)
+                if( settings.autoPlay )
                 {
-                    methods.autoPlay($container);
+                    methods.autoPlay( $container );
 
-                    $wrapper.delegate(wrapper, 'mouseenter', function(e) {
+                    $wrapper.delegate( wrapper, 'mouseenter', function( e ) {
                         methods.autoPlaySwitch('over');
                     });
 
-                    $wrapper.delegate(wrapper, 'mouseleave', function(e) {
+                    $wrapper.delegate( wrapper, 'mouseleave', function( e ) {
                         methods.autoPlaySwitch('out');
                     });
                 }
             } 
-            else if (property.bodyWidth > property.widthMobile)
+            else if ( property.bodyWidth > property.widthMobile )
             {
                 $collection.css({
-                    'transform': 'rotate(' + (settings.btnRorate) + 'deg)',
+                    'transform': 'rotate(' + settings.btnRorate + 'deg)',
                     'transition': settings.speedSlide+'ms all',
                 });
                 methods.tabletChange( $collection );
@@ -344,6 +354,6 @@
             }
         };
 
-        return this.each(make);
+        return this.each( make );
     };
-})(jQuery);
+})( jQuery );
