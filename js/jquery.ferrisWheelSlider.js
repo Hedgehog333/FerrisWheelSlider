@@ -213,15 +213,15 @@
 
                 methods.rotate(obj);
             },
-            rotate: function(obj)
+            rotate: function($obj)
             {
-                obj.css('transform', 'rotate(' + property.deg + 'deg)');
+                $obj.css('transform', 'rotate(' + property.deg + 'deg)');
             },
-            autoPlay: function(wrapper)
+            autoPlay: function($container)
             {
                 setInterval(function(){
                     if(property.autoPlay)
-                        methods.move($(wrapper).find('ul.radialSlider'), 'next');
+                        methods.move($container, 'next');
                 }, settings.speed);
             },
             autoPlaySwitch: function(type)
@@ -325,7 +325,7 @@
 
                 if(settings.autoPlay)
                 {
-                    methods.autoPlay(wrapper);
+                    methods.autoPlay($container);
 
                     $wrapper.delegate(wrapper, 'mouseenter', function(e) {
                         methods.autoPlaySwitch('over');
