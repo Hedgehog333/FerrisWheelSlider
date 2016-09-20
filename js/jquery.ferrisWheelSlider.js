@@ -187,31 +187,31 @@
 
                 methods.changeContent(obj, activ-->0?activ--:property.total-1 );
             },
-            move : function(object, type)
+            move : function($object, type)
             {
                 var type_ = type || $(this).attr('class');
-                var obj = type 
-                            ? object
+                var $obj = type 
+                            ? $object
                             : $(this).parent().children('ul.radialSlider') ;
 
-                var activ = obj.children("li").index(obj.children("li.active"));
+                var activ = $obj.children("li").index($obj.children("li.active"));
 
                 switch  (type_)
                 {
                     case 'next':
                         property.deg -= property.angle;
-                        methods.next(obj, activ);
+                        methods.next($obj, activ);
                     break;
                     case 'prev':
                         property.deg += property.angle;
-                        methods.prev(obj, activ);
+                        methods.prev($obj, activ);
                     break;
                 }
 
                 if( property.isTablet )
-                    methods.tabletChange( obj.children("li") );
+                    methods.tabletChange( $obj.children("li") );
 
-                methods.rotate(obj);
+                methods.rotate($obj);
             },
             rotate: function($obj)
             {
