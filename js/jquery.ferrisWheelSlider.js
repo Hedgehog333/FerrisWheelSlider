@@ -26,7 +26,7 @@
                 
                 for( var i = 0; i < $obj.find(".title").length; i++ )
                 {
-                    var $li = $('<li />').html( $obj.find(".title").eq( i ).html() ).on('click', this.touch);
+                    var $li = $('<li />').html( $obj.find(".title").eq( i ).html() ).on('click', this.touch );
                     if( i == 0 )
                         $li.addClass('active');
                     $ulMenu.append( $li );
@@ -54,8 +54,8 @@
             },
             arrows : function( $parent )
             {
-                var $prev = $('<span />').addClass('prev').text('prev').on('click', this.move);
-                var $next = $('<span />').addClass('next').text('next').on('click', this.move);
+                var $prev = $('<span />').addClass('prev').text('prev').on('click', this.move ),
+                    $next = $('<span />').addClass('next').text('next').on('click', this.move );
                 $parent.append( $prev, $next );
             },
             wheel : function( $obj )
@@ -73,10 +73,10 @@
                     $this.css('transform', 'rotate(' + property.angle*index + settings.btnRorate + 'deg)');
 
                     $obj.children('.radialSliderContent')
-                    .children("li.item")
-                    .eq( index )
-                    .children(".titleBlock")
-                    .text( $this.children('b').text() );
+                        .children("li.item")
+                        .eq( index )
+                        .children(".titleBlock")
+                        .text( $this.children('b').text() );
                 });
             },
             touch : function()
@@ -93,7 +93,6 @@
 
                 if( property.isTablet )
                     methods.tabletChange( $collection );
-
 
                 if( step < 0 ) 
                     step += property.total;
@@ -114,11 +113,11 @@
             changeContent : function( $obj, index )
             {
                 $obj.parent()
-                .children('.radialSliderContent')
-                .children("li")
-                .removeClass("active")
-                .eq( index )
-                .addClass( "active" );
+                    .children('.radialSliderContent')
+                    .children("li")
+                    .removeClass("active")
+                    .eq( index )
+                    .addClass( "active" );
             },
             next : function( $obj, activ )
             {
@@ -186,12 +185,11 @@
             },
             move : function( $object, type )
             {
-                var type_ = type || $(this).attr('class');
-                var $obj = type 
+                var type_ = type || $(this).attr('class'),
+                    $obj = type 
                             ? $object
-                            : $(this).parent().children('ul.radialSlider') ;
-
-                var activ = $obj.children("li").index($obj.children("li.active"));
+                            : $(this).parent().children('ul.radialSlider'),
+                    activ = $obj.children("li").index($obj.children("li.active"));
 
                 switch( type_ )
                 {
@@ -236,33 +234,33 @@
             animOut: function( $container, index, val )
             {
                 $container.children("li")
-                .eq( index )
-                .animate({
-                    left: val,
-                    }, settings.speedSlide, 
-                    function(){
-                        $(this).removeClass('active');
-                });
+                    .eq( index )
+                    .animate({
+                        left: val,
+                        }, settings.speedSlide, 
+                        function(){
+                            $(this).removeClass('active');
+                    });
             },
             animIn: function( $container, index, from, to )
             {
                 $container.children("li")
-                .eq( index )
-                .css('left', from +'px')
-                .animate({
-                    left: to,
-                }, settings.speedSlide );
+                    .eq( index )
+                    .css('left', from +'px')
+                    .animate({
+                        left: to,
+                    }, settings.speedSlide );
             },
             tabletChange: function( $collection )
             {
                 var active = $collection.index( $collection.parent().children('li.active') ),
-                previous = active > 0 ? active-1 : property.total-1,
-                next = active < property.total-1 ? active+1 : 0,
-                prevPrev = previous > 0 ? previous-1 : property.total-1,
-                nextNext = next < property.total-1 ? next+1 : 0,
-                prevPrevPrev = prevPrev > 0 ? prevPrev-1 : property.total-1,
-                nextNextNext = nextNext < property.total-1 ? nextNext+1 : 0;
-                property.isTablet = true;
+                    previous = active > 0 ? active-1 : property.total-1,
+                    next = active < property.total-1 ? active+1 : 0,
+                    prevPrev = previous > 0 ? previous-1 : property.total-1,
+                    nextNext = next < property.total-1 ? next+1 : 0,
+                    prevPrevPrev = prevPrev > 0 ? prevPrev-1 : property.total-1,
+                    nextNextNext = nextNext < property.total-1 ? nextNext+1 : 0;
+                    property.isTablet = true;
 
                 $collection.css('display', 'none');
 
