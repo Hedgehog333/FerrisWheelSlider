@@ -263,40 +263,26 @@
                 property.isTablet = true;
 
                 collection.css('display', 'none');
-                collection.eq(ppp).css({
-                    'display' : 'block',
-                    'left' : -120+'px',
-                });
-                collection.eq(pp).css({
-                    'display' : 'block',
-                    'left' : 86+'px',
-                });
-                collection.eq(previous).css({
-                    'display' : 'block',
-                    'left' : 180+'px',
-                });
-                collection.eq(active).css({
-                    'display' : 'block',
-                    'left' : 295+'px',
-                });
-                collection.eq(next).css({
-                    'display' : 'block',
-                    'left' : 435+'px',
-                });
-                collection.eq(nn).css({
-                    'display' : 'block',
-                    'left' : 540+'px',
-                });
 
-                collection.eq(nnn).css({
-                    'display' : 'block',
-                    'left' : window.innerWidth+'px',
-                });
+                methods.tabletItemCss( collection, ppp, -120 );
+                methods.tabletItemCss( collection, pp, 86 );
+                methods.tabletItemCss( collection, previous, 180 );
+                methods.tabletItemCss( collection, active, 295 );
+                methods.tabletItemCss( collection, next, 435 );
+                methods.tabletItemCss( collection, nn, 540 );
+                methods.tabletItemCss( collection, nnn, window.innerWidth );
 
                 collection.removeClass('neighborsActive');
 
                 collection.eq(next).addClass('neighborsActive');
                 collection.eq(previous).addClass('neighborsActive');
+            },
+            tabletItemCss: function ( collection, index, left )
+            {
+                collection.eq(index).css({
+                    'display' : 'block',
+                    'left' : left+'px',
+                });
             }
         };
 
