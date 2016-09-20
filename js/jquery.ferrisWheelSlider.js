@@ -260,10 +260,10 @@
                     nextNext = next < property.total-1 ? next+1 : 0,
                     prevPrevPrev = prevPrev > 0 ? prevPrev-1 : property.total-1,
                     nextNextNext = nextNext < property.total-1 ? nextNext+1 : 0;
-                    property.isTablet = true;
-
+                
+                property.isTablet = true;
                 $collection.css('display', 'none');
-
+                
                 methods.tabletItemCss( $collection, prevPrevPrev, -120 );
                 methods.tabletItemCss( $collection, prevPrev, 86 );
                 methods.tabletItemCss( $collection, previous, 180 );
