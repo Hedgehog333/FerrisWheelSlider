@@ -60,24 +60,17 @@
                 obj.parentNode.insertBefore(wrapper, obj);
                 wrapper.appendChild(ulMenu);
                 if(settings.arrows)
-                    this.arrows(wrapper);
+                    this.arrows( $(wrapper ) );
                 wrapper.appendChild(ulcontent);
                 obj.remove();
                 obj = wrapper;
                 return wrapper;
             },
-            arrows : function(parent)
+            arrows : function($parent)
             {
-                var prev = document.createElement('span');
-                prev.className = "prev";
-                prev.innerHTML = "prev";
-                prev.onclick  = this.move;
-                var next = document.createElement('span');
-                next.className = "next";
-                next.innerHTML = "next";
-                next.onclick = this.move;
-                parent.appendChild(prev);
-                parent.appendChild(next);
+                var $prev = $('<span />').addClass('prev').text('prev').on('click', this.move);
+                var $next = $('<span />').addClass('next').text('next').on('click', this.move);
+                $parent.append( $prev, $next );
             },
             wheel : function($obj)
             {
