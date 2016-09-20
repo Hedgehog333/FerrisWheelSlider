@@ -126,11 +126,11 @@
                 methods.rotate( $(this).parent() );
                 methods.changeContent($(this).parent(), $(this).parent().children("li").index($(this)) );
             },
-            changeContent : function(obj, index)
+            changeContent : function($obj, index)
             {
-                var li = obj.parent().children('.radialSliderContent').children("li");
-                li.removeClass("active");
-                li.eq( index ).addClass( "active" );
+                $obj.parent().children('.radialSliderContent')
+                .children("li").removeClass("active")
+                .eq( index ).addClass( "active" );
             },
             next : function($obj, activ)
             {
