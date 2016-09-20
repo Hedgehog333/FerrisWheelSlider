@@ -251,31 +251,31 @@
                     left: to,
                 }, settings.speedSlide);
             },
-            tabletChange: function( collection )
+            tabletChange: function( $collection )
             {
-                var active = collection.index(collection.parent().children('li.active')),
+                var active = $collection.index($collection.parent().children('li.active')),
                 previous = active > 0 ? active-1 : property.total-1,
                 next = active < property.total-1 ? active+1 : 0,
-                pp = previous > 0 ? previous-1 : property.total-1,
-                nn = next < property.total-1 ? next+1 : 0,
-                ppp = pp > 0 ? pp-1 : property.total-1,
-                nnn = nn < property.total-1 ? nn+1 : 0;
+                prevPrev = previous > 0 ? previous-1 : property.total-1,
+                nextNext = next < property.total-1 ? next+1 : 0,
+                prevPrevPrev = prevPrev > 0 ? prevPrev-1 : property.total-1,
+                nextNextNext = nextNext < property.total-1 ? nextNext+1 : 0;
                 property.isTablet = true;
 
-                collection.css('display', 'none');
+                $collection.css('display', 'none');
 
-                methods.tabletItemCss( collection, ppp, -120 );
-                methods.tabletItemCss( collection, pp, 86 );
-                methods.tabletItemCss( collection, previous, 180 );
-                methods.tabletItemCss( collection, active, 295 );
-                methods.tabletItemCss( collection, next, 435 );
-                methods.tabletItemCss( collection, nn, 540 );
-                methods.tabletItemCss( collection, nnn, window.innerWidth );
+                methods.tabletItemCss( $collection, prevPrevPrev, -120 );
+                methods.tabletItemCss( $collection, prevPrev, 86 );
+                methods.tabletItemCss( $collection, previous, 180 );
+                methods.tabletItemCss( $collection, active, 295 );
+                methods.tabletItemCss( $collection, next, 435 );
+                methods.tabletItemCss( $collection, nextNext, 540 );
+                methods.tabletItemCss( $collection, nextNextNext, window.innerWidth );
 
-                collection.removeClass('neighborsActive');
+                $collection.removeClass('neighborsActive');
 
-                collection.eq(next).addClass('neighborsActive');
-                collection.eq(previous).addClass('neighborsActive');
+                $collection.eq(next).addClass('neighborsActive');
+                $collection.eq(previous).addClass('neighborsActive');
             },
             tabletItemCss: function ( $collection, index, left )
             {
