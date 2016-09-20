@@ -79,21 +79,24 @@
                 parent.appendChild(prev);
                 parent.appendChild(next);
             },
-            wheel : function(obj)
+            wheel : function($obj)
             {
-                $(obj).children('ul.radialSlider').children('li').each(function(index)
+                $obj.children('ul.radialSlider').children('li').each(function(index)
                 {
-                    var theta = property.alpha * index - property.magicNumber;
-                    var pointx  =  Math.floor(Math.cos( theta ) * settings.radius );
-                    var pointy  = Math.floor(Math.sin( theta ) * settings.radius );
+                    var theta = property.alpha * index - property.magicNumber,
+                        pointx  =  Math.floor( Math.cos( theta ) * settings.radius ),
+                        pointy  = Math.floor( Math.sin( theta ) * settings.radius ),
+                        $this = $(this);
 
-                    $(this).css('left', pointx + settings.offsetX + 'px');
-                    $(this).css('top', pointy  + settings.offsetY  + 'px');
+                    $this.css('left', pointx + settings.offsetX + 'px');
+                    $this.css('top', pointy  + settings.offsetY + 'px');
 
-                    $(this).css('transform', 'rotate(' + (property.angle*index + settings.btnRorate) + 'deg)');
+                    $this.css('transform', 'rotate(' + (property.angle*index + settings.btnRorate) + 'deg)');
 
-                    var li = $(obj).children('.radialSliderContent').children("li.item");
-                    li.eq( index ).children(".titleBlock").text( $(this).children('b').text() );
+                    $obj.children('.radialSliderContent')
+                    .children("li.item").eq( index )
+                    .children(".titleBlock")
+                    .text( $this.children('b').text() );
                 });
             },
             touch : function()
@@ -330,7 +333,7 @@
                 property.angle = 360 / property.total;
                 property.mid = Math.floor(property.total/2);
 
-                methods.wheel(wrapper);
+                methods.wheel($wrapper);
 
                 property.autoPlay = settings.autoPlay;
 
