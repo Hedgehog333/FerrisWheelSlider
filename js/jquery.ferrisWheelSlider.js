@@ -236,18 +236,18 @@
                     break;
                 }
             },
-            animOut: function( obj, index, val )
+            animOut: function( $container, index, val )
             {
-                obj.children("li").eq(index).animate({
+                $container.children("li").eq(index).animate({
                     left: val,
                 }, settings.speedSlide, 
                 function(){
-                    $(this).removeClass('active'); 
+                    $(this).removeClass('active');
                 });
             },
-            animIn: function( obj, index, from, to )
+            animIn: function( $container, index, from, to )
             {
-                obj.children("li").eq(index).css('left', from +'px').animate({
+                $container.children("li").eq(index).css('left', from +'px').animate({
                     left: to,
                 }, settings.speedSlide);
             },
