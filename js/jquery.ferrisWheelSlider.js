@@ -16,55 +16,40 @@
         var methods = {
             marking : function(obj)
             {
-                var wrapper = document.createElement('div');
-                wrapper.className = "ferrisWheelSlider " + obj.className;
+                var $obj = $(obj),
+                    $wrapper = $('<div />').addClass('ferrisWheelSlider').addClass(obj.className),
+                    $ulMenu = $('<ul />').addClass('radialSlider'),
+                    $ulcontent = $('<ul />').addClass('radialSliderContent');
 
-                var ulMenu = document.createElement('ul');
-                ulMenu.className = "radialSlider";
-                $(ulMenu).css('transition', 'all ' + settings.duration + 'ms' ); 
+                $ulMenu.css('transition', 'all ' + settings.duration + 'ms' ); 
                 
-                for( var i = 0; i < obj.getElementsByClassName("title").length; i++ )
+                for( var i = 0; i < $obj.find(".title").length; i++ )
                 {
-                    var li = document.createElement('li');
-                    li.innerHTML = obj.getElementsByClassName("title")[i].innerHTML;
-                    li.onclick  = this.touch;
+                    var $li = $('<li />').html( $obj.find(".title").eq(i).html() ).on('click', this.touch);
                     if(i == 0)
-                        li.className += ' active';
-                    ulMenu.appendChild(li);
-                    $(li).children('img').css('transform', 'rotate(' + settings.imageRptate + 'deg)');
+                        $li.addClass('active');
+                    $ulMenu.append($li);
+                    $li.children('img').css('transform', 'rotate(' + settings.imageRptate + 'deg)');
+                }
+                for( var i = 0; i < $obj.find(".content").length; i++ )
+                {
+                    var $li = $('<li />').addClass('item'),
+                        $title = $('<span />').addClass('titleBlock'),
+                        $wparContent = $('<div />').html( $obj.find(".content").eq(i).html() );
+                    if(i == 0)
+                        $li.addClass('active');
+
+                    $li.append( $title, $wparContent );
+                    $ulcontent.append( $li );
                 }
 
-                var ulcontent = document.createElement('ul');
-                ulcontent.className = "radialSliderContent";
-
-
-
-                for( var i = 0; i < obj.getElementsByClassName("content").length; i++ )
-                {
-                    var li = document.createElement('li');
-                    
-                    li.className = 'item';
-                    if(i == 0)
-                        li.className += ' active';
-                    var title = document.createElement('span');
-                    title.className = 'titleBlock';
-
-                    var wparContent = document.createElement('div');
-                    wparContent.innerHTML = obj.getElementsByClassName("content")[i].innerHTML
-
-                    li.appendChild(title);
-                    li.appendChild(wparContent);
-
-                    ulcontent.appendChild(li);
-                }
-                obj.parentNode.insertBefore(wrapper, obj);
-                wrapper.appendChild(ulMenu);
+                $obj.before( $wrapper );
+                $wrapper.append( $ulMenu );
                 if(settings.arrows)
-                    this.arrows( $(wrapper ) );
-                wrapper.appendChild(ulcontent);
-                obj.remove();
-                obj = wrapper;
-                return wrapper;
+                    this.arrows( $wrapper );
+                $wrapper.append( $ulcontent );
+                $obj.remove();
+                return $wrapper;
             },
             arrows : function($parent)
             {
