@@ -305,10 +305,13 @@
             if ( options )
                 $.extend( settings, options );
 
-            var wrapper = methods.marking(this);
+            var wrapper = methods.marking(this),
+                $wrapper = $(wrapper),
+                $container = $wrapper.children('ul.radialSlider'),
+                $collection = $container.children('li');
 
             property.bodyWidth = $(window).width();
-            property.total = $(wrapper).children('ul.radialSlider').children('li').length;
+            property.total = $collection.length;
 
             if(property.bodyWidth > property.widthTablet)
             {
@@ -324,28 +327,28 @@
                 {
                     methods.autoPlay(wrapper);
 
-                    $(wrapper).delegate(wrapper, 'mouseenter', function(e) {
+                    $wrapper.delegate(wrapper, 'mouseenter', function(e) {
                         methods.autoPlaySwitch('over');
                     });
 
-                    $(wrapper).delegate(wrapper, 'mouseleave', function(e) {
+                    $wrapper.delegate(wrapper, 'mouseleave', function(e) {
                         methods.autoPlaySwitch('out');
                     });
                 }
             } 
             else if (property.bodyWidth > property.widthMobile)
             {
-                $(wrapper).children('ul.radialSlider').children('li').css({
+                $collection.css({
                     'transform': 'rotate(' + (settings.btnRorate) + 'deg)',
                     'transition': settings.speedSlide+'ms all',
                 });
-                methods.tabletChange( $(wrapper).children('ul.radialSlider').children('li') );
+                methods.tabletChange( $collection );
             }
             else
             {
-                $(wrapper).children('ul.radialSlider').children('li.active').css('left', $(window).width()/2 - ( $('.active').eq(0).outerWidth( true )/2 ) +'px');
-                $(wrapper).children('ul.radialSlider').children('li').css('transform', 'rotate(' + (settings.btnRorate) + 'deg)');
-                property.widthItem = $(wrapper).children('ul.radialSlider').children('li.active').outerWidth( true );
+                $container.children('li.active').css('left', property.bodyWidth/2 - ( $container.children('li.active').eq(0).outerWidth( true )/2 ) +'px');
+                $collection.css('transform', 'rotate(' + settings.btnRorate + 'deg)');
+                property.widthItem = $container.children('li.active').outerWidth( true );
             }
         };
 
