@@ -132,60 +132,69 @@
                 li.removeClass("active");
                 li.eq( index ).addClass( "active" );
             },
-            next : function(obj, activ)
+            next : function($obj, activ)
             {
                 if(property.bodyWidth <= property.widthMobile)
                     methods.animOut(
-                        obj, 
+                        $obj, 
                         activ, 
                         -property.widthItem
                     );
                 else
-                    obj.children("li.active").removeClass('active'); 
+                    $obj.children("li.active").removeClass('active'); 
 
+                var $collection = $obj.children("li"),
+                    $elem;
                 if(activ < property.total-1) 
-                    obj.children("li").eq(activ).next().addClass('active');
+                    $elem = $collection.eq(activ).next();
                 else
-                    obj.children("li").eq(0).addClass('active');
+                    $elem = $collection.eq(0);
+                $elem.addClass('active');
                 
                 if(property.bodyWidth <= property.widthMobile)
                 {
-                    var act = activ < property.total-1 ? activ+1 : 0;
-                    methods.animIn(obj, act, 
-                        $(window).width() + obj.children('li').eq(act).outerWidth( true ), 
-                        $(window).width()/2 - obj.children('li').eq(act).outerWidth( true )/2
+                    var act = activ < property.total-1 ? activ+1 : 0,
+                        width = $(window).width(),
+                        widthElem = $collection.eq(act).outerWidth( true );
+                    
+                    methods.animIn($obj, act, 
+                        width + widthElem, 
+                        width/2 - widthElem/2
                     );
                 }
 
-                methods.changeContent(obj, activ++<property.total-1?activ++:0 );
+                methods.changeContent($obj, activ++<property.total-1?activ++:0 );
             },
-            prev : function(obj, activ)
+            prev : function($obj, activ)
             {
                 if(property.bodyWidth <= property.widthMobile)
                     methods.animOut(
-                        obj, 
+                        $obj, 
                         activ, 
                         $(window).width() + property.widthItem
                     );
                 else
-                    obj.children("li.active").removeClass('active'); 
+                    $obj.children("li.active").removeClass('active'); 
 
+                var $collection = $obj.children("li"),
+                    $elem;
                 if(activ > 0) 
-                    obj.children("li").eq(activ).prev().addClass('active');
+                    $elem = $collection.eq(activ).prev();
                 else
-                    obj.children("li").eq(property.total-1).addClass('active');
+                    $elem = $collection.eq(property.total-1);
+                $elem.addClass('active');
                 
                 if(property.bodyWidth <= property.widthMobile)
                 {
                     var act = activ > 0 
                                 ? activ-1 
                                 : property.total-1;
-                    methods.animIn(obj, act, -property.widthItem, 
-                        $(window).width()/2 - obj.children('li.active').eq(0).outerWidth( true )/2
+                    methods.animIn($obj, act, -property.widthItem, 
+                        $(window).width()/2 - $obj.children('li.active').eq(0).outerWidth( true )/2
                     );
                 }
 
-                methods.changeContent(obj, activ-->0?activ--:property.total-1 );
+                methods.changeContent($obj, activ-->0?activ--:property.total-1 );
             },
             move : function($object, type)
             {
