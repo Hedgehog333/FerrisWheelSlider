@@ -98,16 +98,18 @@
             },
             touch : function()
             {
-                var curr = $(this).parent().children("li").index($(this));
-                var activ = $(this).parent().children("li").index($(this).parent().children("li.active"));
+                var $this = $(this),
+                    $container = $this.parent(),
+                    $collection = $container.children("li"),
+                    curr = $collection.index( $this ),
+                    activ = $collection.index( $container.children("li.active") ),
+                    step = curr - activ;
 
-                var step = curr - activ;
-
-                $(this).parent().children("li").removeClass("active");
-                $(this).addClass("active");
+                $collection.removeClass("active");
+                $this.addClass("active");
 
                 if( property.isTablet )
-                    methods.tabletChange( $(this).parent().children("li") );
+                    methods.tabletChange( $collection );
 
 
                 if(step < 0) 
@@ -123,8 +125,8 @@
                     property.deg += Math.abs(property.angle * step);
                 }
 
-                methods.rotate( $(this).parent() );
-                methods.changeContent($(this).parent(), $(this).parent().children("li").index($(this)) );
+                methods.rotate( $container );
+                methods.changeContent( $container, $collection.index( $this ) );
             },
             changeContent : function($obj, index)
             {
