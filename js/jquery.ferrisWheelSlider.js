@@ -106,6 +106,10 @@
                 $(this).parent().children("li").removeClass("active");
                 $(this).addClass("active");
 
+                if( property.isTablet )
+                    methods.tabletChange( $(this).parent().children("li") );
+
+
                 if(step < 0) 
                     step += property.total;
                 
