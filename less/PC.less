@@ -1,0 +1,49 @@
+@import 'global.less';
+
+.radialSlider
+{
+	@WH: 1438px;
+	background-size: @WH;
+	height: @WH;
+	width: @WH;
+	border: 6px solid @BrightRed;
+	border-radius: 1000px;
+	margin: 120px auto;
+	> li
+	{
+		@WH: 180px;
+		width: @WH;
+		height: @WH;
+		border-radius: 26px;
+		&.active
+		{
+			background: @White;
+			border: 9px solid @BrightRed;
+			margin: -9px;
+		}
+	}
+}
+.prev,
+.next
+{
+	@WH: 75px;
+	border-radius: 55px;
+	width: @WH;
+	height: @WH;
+	top: 60px;
+}
+.prev
+{
+	left: 50px;
+}
+.next
+{
+	right: 50px;
+}
+.radialSliderContent
+{
+	position: absolute;
+	top: 300px;
+	left: 400px;
+	width: 580px;
+}

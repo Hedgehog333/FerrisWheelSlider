@@ -4,7 +4,6 @@ jQuery plugin
 ### TODO:
 - implement change slider instance states
 - calculate the coordinates of the items
-- add sources (less/css/img/...)
 - fix show title mobile and tablet
 - fix rotate item PC
 

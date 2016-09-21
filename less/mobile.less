@@ -1,0 +1,54 @@
+@import 'global.less';
+
+.radialSlider
+{
+	overflow: hidden;
+	padding: 0 94px;
+	margin: 0 auto;
+	height: 122px;
+	> li
+	{
+		@WH: 80px;
+		width: @WH;
+		height: @WH;
+		margin: 18px;
+		top: initial;
+		left: initial;
+		display: none;
+		border-radius:26px;
+		img
+		{
+			width: 90%;
+		}
+		&.active
+		{
+			display: block;
+			background: @White;
+			border: 6px solid @BrightRed;
+			margin-top: 12px;
+		}
+	}
+}
+.prev,
+.next
+{
+	@WH: 45px;
+	height: @WH;
+	width: @WH;
+	top: 28px;
+	background-size: cover;
+	border-width: 3px;
+}
+.prev
+{
+	left: 10px;
+}
+.next
+{
+	right: 10px;
+}
+.radialSliderContent
+{
+	width: 90%;
+	margin: 0 auto;
+}

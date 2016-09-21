@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Ferris Wheel Slider demo</title>
+	<link rel="stylesheet" type="text/css" href="css/ferrisWheelSlider.css">
+	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+	<script type="text/javascript" src="js/jquery.ferrisWheelSlider.js"></script>
+
+	<style type="text/css">
+		.wrapperFW,
+		.FWS,
+		.FWS1
+		{
+			overflow: hidden;
+		}
+	</style>
+	<script type="text/javascript">
+	$(function(){
+
+		var fws = $('.FWS').ferrisWheelSlider({
+			radius: 710,
+			offsetX: 630,
+			offsetY: 630,
+			btnRorate: 45,
+			imageRptate: -45,
+			duration: 1000,
+			speed: 8000,
+			autoPlay: true,
+		});
+	});
+	</script>
+</head>
+<body>
+	<ul class="FWS">
+		<li>
+			<span class="title"><img src='img/code-128.png' /><b>title 1</b></span>
+			<span class="content">
+				<ul>
+					<li>qweeqweqw</li>
+					<li>sadsadasd</li>
+					<li>xczzcxzcxzcx</li>
+					<li>23423443</li>
+				</ul>
+			</span>
+		</li>
+		<li>
+			<span class="title"><img src='img/code-128.png' /><b>title 2</b></span>
+			<span class="content">content 2</span>
+		</li>
+		<li>
+			<span class="title"><img src='img/code-128.png' /><b>title 3</b></span>
+			<span class="content">content 3</span>
+		</li>
+		<li>
+			<span class="title"><img src='img/code-128.png' /><b>title 4</b></span>
+			<span class="content">content 4</span>
+		</li>
+		<li>
+			<span class="title"><img src='img/code-128.png' /><b>title 5</b></span>
+			<span class="content">content 5</span>
+		</li>
+		<li>
+			<span class="title"><img src='img/code-128.png' /><b>title 6</b></span>
+			<span class="content">content 6</span>
+		</li>
+		<li>
+			<span class="title"><img src='img/code-128.png' /><b>title 7</b></span>
+			<span class="content">content 7</span>
+		</li>
+		<li>
+			<span class="title"><img src='img/code-128.png' /><b>title 8</b></span>
+			<span class="content">content 8</span>
+		</li>
+		<li>
+			<span class="title"><img src='img/code-128.png' /><b>title 9</b></span>
+			<span class="content">content 9</span>
+		</li>
+		<li>
+			<span class="title"><img src='img/code-128.png' /><b>title 10</b></span>
+			<span class="content">content 10</span>
+		</li>
+	</ul>
+</body>
+</html>

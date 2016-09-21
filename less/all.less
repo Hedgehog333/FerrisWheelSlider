@@ -1,0 +1,75 @@
+@import 'global.less';
+
+.radialSlider
+{
+	padding: 0;
+	position: relative;
+	> li
+	{
+		position: absolute;
+		display: flex;
+		cursor: pointer;
+		list-style-type: none;
+		background: @BrightRed;
+		img
+		{
+			margin: auto;
+		}
+		b
+		{
+			text-indent: -500px;
+			overflow: hidden;
+			display: block;
+			position: absolute;
+		}
+		span
+		{
+			padding: 16px;
+			text-align: center;
+			display: block;
+			overflow: hidden;
+		}
+	}
+}
+.prev,
+.next
+{
+	border: 6px solid @BrightRed;
+	border-radius: 55px;
+	cursor: pointer;
+	display: block;
+	position: absolute;
+	background: @White;
+	background-repeat: no-repeat;
+	background-position: center;
+	text-indent: -500px;
+	overflow: hidden;
+}
+.prev
+{
+	background-image: url(../img/arrow-left-64.png);
+}
+.next
+{
+	background-image: url(../img/arrow-right-64.png);
+}
+.radialSliderContent
+{
+	padding: 0;
+	.item
+	{
+		display: none;
+		&.active
+		{
+			display: block;
+		}
+		span
+		{
+			display: inherit;
+			font-size: 35px;
+			font-weight: bold;
+			text-align: center;
+			text-transform: uppercase;
+		}
+	}
+}
