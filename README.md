@@ -5,7 +5,6 @@ jQuery plugin
 - implement change slider instance states
 - calculate the coordinates of the items
 - fix show title mobile and tablet
-- fix rotate item PC
 
 ## Attributes list:
 | Attribute |  Type   | Default value |       Units      |          Description                |     Device      |

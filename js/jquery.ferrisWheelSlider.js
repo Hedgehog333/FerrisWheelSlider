@@ -22,8 +22,8 @@
                     $ulMenu = $('<ul />').addClass('radialSlider'),
                     $ulcontent = $('<ul />').addClass('radialSliderContent');
 
-                $ulMenu.css('transition', 'all ' + settings.duration + 'ms' ); 
-                
+                $ulMenu.css('transition', 'all ' + settings.duration + 'ms' );
+
                 for( var i = 0; i < $obj.find(".title").length; i++ )
                 {
                     var $li = $('<li />').html( $obj.find(".title").eq( i ).html() ).on('click', this.touch );
@@ -63,14 +63,14 @@
                 $obj.children('ul.radialSlider').children('li').each(function( index )
                 {
                     var theta = property.alpha * index - property.magicNumber,
-                        pointx  =  Math.floor( Math.cos( theta ) * settings.radius ),
-                        pointy  = Math.floor( Math.sin( theta ) * settings.radius ),
+                        pointx = Math.floor( Math.cos( theta ) * settings.radius ),
+                        pointy = Math.floor( Math.sin( theta ) * settings.radius ),
                         $this = $(this);
 
                     $this.css('left', pointx + settings.offsetX + 'px');
                     $this.css('top', pointy  + settings.offsetY + 'px');
 
-                    $this.css('transform', 'rotate(' + property.angle*index + settings.btnRorate + 'deg)');
+                    $this.css('transform', 'rotate(' + ( property.angle*index + settings.btnRorate ) + 'deg)');
 
                     $obj.children('.radialSliderContent')
                         .children("li.item")
@@ -94,9 +94,9 @@
                 if( property.isTablet )
                     methods.tabletChange( $collection );
 
-                if( step < 0 ) 
+                if( step < 0 )
                     step += property.total;
-                
+
                 if( step <= property.mid && step >= 0 )
                 {
                     property.deg -= Math.abs( property.angle * step );
@@ -123,30 +123,30 @@
             {
                 if( property.bodyWidth <= property.widthMobile )
                     methods.animOut(
-                        $obj, 
-                        activ, 
+                        $obj,
+                        activ,
                         -property.widthItem
                     );
                 else
                     $obj.children("li.active")
-                        .removeClass('active'); 
+                        .removeClass('active');
 
                 var $collection = $obj.children("li"),
                     $elem;
-                if( activ < property.total-1 ) 
+                if( activ < property.total-1 )
                     $elem = $collection.eq( activ ).next();
                 else
                     $elem = $collection.eq(0);
                 $elem.addClass('active');
-                
+
                 if( property.bodyWidth <= property.widthMobile )
                 {
                     var act = activ < property.total-1 ? activ+1 : 0,
                         width = $(window).width(),
                         widthElem = $collection.eq( act ).outerWidth( true );
-                    
-                    methods.animIn($obj, act, 
-                        width + widthElem, 
+
+                    methods.animIn($obj, act,
+                        width + widthElem,
                         width/2 - widthElem/2
                     );
                 }
@@ -156,27 +156,27 @@
             {
                 if(property.bodyWidth <= property.widthMobile)
                     methods.animOut(
-                        $obj, 
-                        activ, 
+                        $obj,
+                        activ,
                         $(window).width() + property.widthItem
                     );
                 else
-                    $obj.children("li.active").removeClass('active'); 
+                    $obj.children("li.active").removeClass('active');
 
                 var $collection = $obj.children("li"),
                     $elem;
-                if(activ > 0) 
+                if(activ > 0)
                     $elem = $collection.eq(activ).prev();
                 else
                     $elem = $collection.eq(property.total-1);
                 $elem.addClass('active');
-                
+
                 if(property.bodyWidth <= property.widthMobile)
                 {
-                    var act = activ > 0 
-                                ? activ-1 
+                    var act = activ > 0
+                                ? activ-1
                                 : property.total-1;
-                    methods.animIn($obj, act, -property.widthItem, 
+                    methods.animIn($obj, act, -property.widthItem,
                         $(window).width()/2 - $obj.children('li.active').eq(0).outerWidth( true )/2
                     );
                 }
@@ -186,7 +186,7 @@
             move : function( $object, type )
             {
                 var type_ = type || $(this).attr('class'),
-                    $obj = type 
+                    $obj = type
                             ? $object
                             : $(this).parent().children('ul.radialSlider'),
                     activ = $obj.children("li").index($obj.children("li.active"));
@@ -237,7 +237,7 @@
                     .eq( index )
                     .animate({
                         left: val,
-                        }, settings.speedSlide, 
+                        }, settings.speedSlide,
                         function(){
                             $(this).removeClass('active');
                     });
@@ -260,10 +260,10 @@
                     nextNext = next < property.total-1 ? next+1 : 0,
                     prevPrevPrev = prevPrev > 0 ? prevPrev-1 : property.total-1,
                     nextNextNext = nextNext < property.total-1 ? nextNext+1 : 0;
-                
+
                 property.isTablet = true;
                 $collection.css('display', 'none');
-                
+
                 methods.tabletItemCss( $collection, prevPrevPrev, -120 );
                 methods.tabletItemCss( $collection, prevPrev, 86 );
                 methods.tabletItemCss( $collection, previous, 180 );
@@ -335,7 +335,7 @@
                         methods.autoPlaySwitch('out');
                     });
                 }
-            } 
+            }
             else if ( property.bodyWidth > property.widthMobile )
             {
                 $collection.css({
