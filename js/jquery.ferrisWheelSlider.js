@@ -71,12 +71,6 @@
                     $this.css('top', pointy  + settings.offsetY + 'px');
 
                     $this.css('transform', 'rotate(' + ( property.angle*index + settings.btnRorate ) + 'deg)');
-
-                    $obj.children('.radialSliderContent')
-                        .children("li.item")
-                        .eq( index )
-                        .children(".titleBlock")
-                        .text( $this.children('b').text() );
                 });
             },
             touch : function()
@@ -312,6 +306,19 @@
 
             property.bodyWidth = $(window).width();
             property.total = $collection.length;
+
+            $wrapper.children('ul.radialSlider')
+                    .children('li')
+                    .each(function( index )
+                    {
+                        var $this = $(this);
+
+                        $wrapper.children('.radialSliderContent')
+                                .children("li.item")
+                                .eq( index )
+                                .children(".titleBlock")
+                                .text( $this.children('b').text() );
+                    });
 
             if( property.bodyWidth > property.widthTablet )
             {
